@@ -1,9 +1,9 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:     jgroups212
 Version:  2.12.3
-Release:  7.0%{?dist}
+Release:  9.1
 Summary:  A toolkit for reliable multicast communication
-
+Group:	  Development/Java
 
 License:  LGPLv2
 URL:      http://www.jgroups.org
@@ -55,38 +55,19 @@ find . -name \*.jar -exec rm -f {} \;
 %patch0 -p1
 
 %build
-# Tests to not current run under maven for this project
-mvn-rpmbuild -Dmaven.test.skip=true install \
-    -Dproject.build.sourceEncoding=UTF-8 \
-    javadoc:aggregate
+%mvn_build -f
 
 %install
-install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
-install -m 644 target/jgroups-%{version}.Final.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
-
-# poms
-install -d -m 755 $RPM_BUILD_ROOT%{_mavenpomdir}
-install -m 644 pom.xml \
-    $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-%{name}.pom
-
-%add_maven_depmap JPP-%{name}.pom %{name}.jar
-
-# javadoc
-install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}
-cp -pr target/site/apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+%mvn_install
 
 # Fix incorrect permissions on documentation
 chmod 644 README
 
-%files
+%files -f .mfiles
 %doc LICENSE README INSTALL.html
-%{_javadir}/%{name}.jar
-%{_mavenpomdir}/JPP-%{name}.pom
-%{_mavendepmapfragdir}/%{name}
 
-%files javadoc
+%files javadoc -f .mfiles-javadoc
 %doc LICENSE
-%{_javadocdir}/%{name}
 
 %changelog
 * Sun Aug 11 2013 Matt Spaulding <mspaulding06@gmail.com> - 2.12.3-7
