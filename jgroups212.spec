@@ -1,7 +1,7 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:     jgroups212
 Version:  2.12.3
-Release:  9.2
+Release:  9.3
 Summary:  A toolkit for reliable multicast communication
 Group:	  Development/Java
 
