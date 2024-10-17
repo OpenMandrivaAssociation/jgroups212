@@ -6,7 +6,7 @@ Summary:  A toolkit for reliable multicast communication
 Group:	  Development/Java
 
 License:  LGPLv2
-URL:      http://www.jgroups.org
+URL:      https://www.jgroups.org
 # git clone git://github.com/belaban/JGroups.git
 # cd JGroups && git checkout Branch_JGroups_2_12 && git checkout-index -f -a --prefix=jgroups212-2.12.3.Final
 # find jgroups212-2.12.3.Final/ -name '*.jar' -type f -delete
